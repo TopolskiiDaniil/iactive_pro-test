@@ -63,13 +63,14 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[type="number"] {
+/* input[type="number"] {
   -moz-appearance: textfield;
-}
+} */
 
 /* Убираем дефолтные стили списка */
 ul, ol {
   list-style: none;
+  list-style-type: none;
 }
 
 /* Изображения масштабируются корректно */

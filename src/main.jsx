@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import App from './App';
-import "./assets/global.css";
+import "./assets/reset.css";
 import "./assets/variables.css";
 import "./assets/global.css";
 
