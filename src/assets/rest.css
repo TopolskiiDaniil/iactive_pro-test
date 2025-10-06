@@ -1,0 +1,97 @@
+/* Сбрасываем базовые отступы и настройки */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, #root {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+/* Убираем outline только при фокусе с клавиатуры (для доступности) */
+:focus-visible {
+  outline: 2px solid #005fcc;
+  outline-offset: 2px;
+}
+
+/* Убираем выделение текста по умолчанию (опционально) */
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+
+/* Убираем подчёркивание у ссылок (если нужно — настрой по проекту) */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Убираем синие подчёркивания на iOS */
+a, button, input, textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Убираем дефолтные стили кнопок и инпутов */
+button, input, optgroup, select, textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  padding: 0;
+}
+
+/* Убираем стрелки у числовых input в Chrome/Firefox */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Убираем дефолтные стили списка */
+ul, ol {
+  list-style: none;
+}
+
+/* Изображения масштабируются корректно */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Убираем пробел под изображениями (они — inline по умолчанию) */
+img, video, canvas, audio, iframe, embed, object {
+  vertical-align: middle;
+}
+
+/* Убираем дефолтные отступы у body */
+body {
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Box-sizing: border-box для всего */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
