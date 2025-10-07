@@ -1,0 +1,3 @@
+const MAX_LENGTH_CONTENT = 40;
+
+export {MAX_LENGTH_CONTENT}

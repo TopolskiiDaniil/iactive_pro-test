@@ -4,8 +4,19 @@ import imageSrc from "./../../assets/media-image@2x 2.jpg";
 import HideIcon from "../icons/HideIcon";
 import OptionsIcon from "../icons/OptionsIcon";
 import FavoriteIcon from "../icons/FavoriteIcon";
+import { formatTime } from "../../utils/formatTime";
+import { truncateText } from "../../utils/truncateText";
+import { MAX_LENGTH_CONTENT } from "../../cons/common";
+import { useState } from "react";
 
-export default function Message() {
+export default function Message({ item }) {
+  const { author, channel, date, content } = item;
+  const [isShowMore, setShowMore] = useState(false);
+
+  const handleShowMoreButton = () => {
+    setShowMore((prev) => !prev);
+  };
+
   return (
     <li className={styles.container}>
       <div className={styles.avatar}>
@@ -14,17 +25,13 @@ export default function Message() {
           src={someAvatarSrc}
           alt="Аватар"
         />
-        <time className={styles.time}>15:57</time>
+        <time className={styles.time}>{formatTime(date)}</time>
       </div>
       <div className={styles.wrapper}>
         <header className={styles.header}>
           <div className={styles.info}>
-            <div>
-              <h3 className={styles.name}>Nina Malofeeva</h3>
-              <p className={styles.comment}>
-                Текст поста в соц. сетях если это комментарий
-              </p>
-            </div>
+            <h3 className={styles.name}>{author}</h3>
+            <p className={styles.comment}>{channel}</p>
           </div>
           <div className={styles["column-controls"]}>
             <button className={styles["column-btn"]}>Левый</button>
@@ -50,9 +57,17 @@ export default function Message() {
         </header>
         <main className={styles.content}>
           <p className={styles.message}>
-            Здравствуйте, как дела у вас в студии?
+            {isShowMore || content.length <= MAX_LENGTH_CONTENT
+              ? content
+              : truncateText(content, MAX_LENGTH_CONTENT)}
           </p>
-          <button className={styles.next}>Далее</button>
+
+          {content.length > MAX_LENGTH_CONTENT && (
+            <button className={styles.next} onClick={handleShowMoreButton}>
+              {isShowMore ? "Скрыть" : "Далее"}
+            </button>
+          )}
+
           <img className={styles.attachment} src={imageSrc} alt="" />
         </main>
       </div>
