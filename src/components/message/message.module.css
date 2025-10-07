@@ -68,10 +68,26 @@
 }
 
 .action-btn {
-	color: var(--color-secondary);
+	padding: 3px;
+	width: 24px;
+	height: 24px;
+	color: var(--color-neutral);
 	background-color: transparent;
 	border: none;
 	cursor: pointer;
+}
+
+.action-btn label input {
+	cursor:pointer;
+}
+
+.action-btn :hover{
+	color: var(--color-secondary);
+}
+
+.action-btn :active {
+	color: var(--color-secondary);
+	opacity: 0.7;
 }
 
 .hide-icon {
