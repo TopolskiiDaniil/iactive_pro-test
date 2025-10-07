@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import exampleReducer from '../features/example/exampleSlice';
+import messagesReducer from '../features/data/messagesSlice';
 
 export const store = configureStore({
   reducer: {
-    example: exampleReducer,
+    messages: messagesReducer,
   },
 });

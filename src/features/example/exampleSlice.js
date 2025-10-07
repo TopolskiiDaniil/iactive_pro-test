@@ -2,9 +2,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
-  data: [],
-  loading: false,
-  error: null,
+  channel: "",
+	content: "",
+	date: "",
+	id: "",
+	region: "",
+	senderNumber: ""
 };
 
 export const fetchData = createAsyncThunk(
