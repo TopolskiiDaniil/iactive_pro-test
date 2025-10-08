@@ -51,6 +51,7 @@
 	background-color: transparent;
 	border: 1px solid var(--color-secondary);
 	cursor: pointer;
+	transition: background-color 0.3s, color 0.3s;
 }
 
 .column-btn:hover {
@@ -62,6 +63,17 @@
 	color: var(--background-base);
 	background-color: var(--color-secondary);
 	opacity: 0.7;
+}
+
+.column-btn:disabled {
+	color: var(--background-base);
+	background-color: var(--color-secondary);
+	cursor: default;
+}
+
+column-btn:disabled:hover,
+column-btn:disabled:active {
+	opacity: 1;
 }
 
 .actions {
@@ -112,6 +124,7 @@
 	margin-bottom: 10px;
 	line-height: 21.6px;
 	color: var(--color-base2);
+	white-space: pre-wrap;
 }
 
 .next {
@@ -125,3 +138,9 @@
 .next:hover {
 	opacity: 0.7;
 }
+
+.messageWrapper {
+  overflow: hidden;
+  will-change: height;
+}
+
