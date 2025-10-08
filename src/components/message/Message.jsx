@@ -1,24 +1,62 @@
 import styles from "./message.module.css";
 import someAvatarSrc from "./../../assets/icons/user-avatar.svg";
-import imageSrc from "./../../assets/media-image@2x 2.jpg";
 import HideIcon from "../icons/HideIcon";
 import OptionsIcon from "../icons/OptionsIcon";
 import FavoriteIcon from "../icons/FavoriteIcon";
 import { formatTime } from "../../utils/formatTime";
 import { truncateText } from "../../utils/truncateText";
-import { MAX_LENGTH_CONTENT } from "../../cons/common";
-import { useState } from "react";
+import { MAX_LENGTH_CONTENT } from "../../const/common";
+import { useRef, useState } from "react";
 
-export default function Message({ item }) {
-  const { author, channel, date, content } = item;
+export default function Message({ item, onMove, innerRef }) {
+  const { id, author, channel, date, content, column } = item;
   const [isShowMore, setShowMore] = useState(false);
+  const [displayContent, setDisplayContent] = useState(
+    truncateText(content, MAX_LENGTH_CONTENT),
+  );
 
-  const handleShowMoreButton = () => {
+  const wrapperRef = useRef(null);
+
+  const handleToggle = () => {
+    const el = wrapperRef.current;
+    if (!el) return;
+
+    const startHeight = el.offsetHeight;
+
+    setDisplayContent(
+      isShowMore ? truncateText(content, MAX_LENGTH_CONTENT) : content,
+    );
     setShowMore((prev) => !prev);
+
+    requestAnimationFrame(() => {
+      const endHeight = el.scrollHeight;
+
+      el.style.height = startHeight + "px";
+      el.style.transition = "height 0.3s ease";
+      el.style.overflow = "hidden";
+
+      requestAnimationFrame(() => {
+        el.style.height = endHeight + "px";
+      });
+
+      const onTransitionEnd = () => {
+        el.style.height = "auto";
+        el.style.transition = "";
+        el.style.overflow = "";
+        el.removeEventListener("transitionend", onTransitionEnd);
+      };
+
+      el.addEventListener("transitionend", onTransitionEnd);
+    });
+  };
+
+  const handleMove = (targetColumn) => {
+    if (targetColumn === column) return;
+    onMove?.(id, targetColumn);
   };
 
   return (
-    <li className={styles.container}>
+    <li className={styles.container} ref={innerRef} data-id={id}>
       <div className={styles.avatar}>
         <img
           className={styles["avatar-icon"]}
@@ -34,16 +72,29 @@ export default function Message({ item }) {
             <p className={styles.comment}>{channel}</p>
           </div>
           <div className={styles["column-controls"]}>
-            <button className={styles["column-btn"]}>Левый</button>
-            <button className={styles["column-btn"]}>Центр</button>
-            <button className={styles["column-btn"]}>Правый</button>
+            <button
+              className={styles["column-btn"]}
+              onClick={() => handleMove("left")}
+              disabled={column === "left"}
+            >
+              Левый
+            </button>
+            <button
+              className={styles["column-btn"]}
+              onClick={() => handleMove("center")}
+              disabled={column === "center"}
+            >
+              Центр
+            </button>
+            <button
+              className={styles["column-btn"]}
+              onClick={() => handleMove("right")}
+              disabled={column === "right"}
+            >
+              Правый
+            </button>
           </div>
           <div className={styles.actions}>
-            <button className={styles["action-btn"]} aria-label="Выбрать">
-              <label>
-                <input type="checkbox" name="choose" value="choose" />
-              </label>
-            </button>
             <button className={styles["action-btn"]} aria-label="Скрыть">
               <HideIcon className={styles.icon} />
             </button>
@@ -56,19 +107,15 @@ export default function Message({ item }) {
           </div>
         </header>
         <main className={styles.content}>
-          <p className={styles.message}>
-            {isShowMore || content.length <= MAX_LENGTH_CONTENT
-              ? content
-              : truncateText(content, MAX_LENGTH_CONTENT)}
-          </p>
+          <div ref={wrapperRef} className={styles.messageWrapper}>
+            <p className={styles.message}>{displayContent}</p>
+          </div>
 
           {content.length > MAX_LENGTH_CONTENT && (
-            <button className={styles.next} onClick={handleShowMoreButton}>
+            <button className={styles.next} onClick={handleToggle}>
               {isShowMore ? "Скрыть" : "Далее"}
             </button>
           )}
-
-          <img className={styles.attachment} src={imageSrc} alt="" />
         </main>
       </div>
     </li>
