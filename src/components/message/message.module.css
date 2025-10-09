@@ -1,8 +1,14 @@
 .container {
-	display: flex;
-	gap: 10px;
 	padding: 10px 10px 28px 10px;
 	border: 1px solid var(--color-secondary);
+	transition: height 0.3s ease;
+
+	& .wrapper-container {
+
+	display: flex;
+	gap: 10px;
+	transition: height 10.3s ease;
+	}
 }
 
 .header {
@@ -36,90 +42,6 @@
 	line-height: 9.2px;
 }
 
-.column-controls {
-	display: flex;
-	gap: 10px;
-	height: fit-content;
-	margin-right: 26px;
-}
-
-.column-btn {
-	padding: 8px 10px;
-	font-size: 11px;
-	line-height: 100%;
-	color: var(--color-secondary);
-	background-color: transparent;
-	border: 1px solid var(--color-secondary);
-	cursor: pointer;
-	transition: background-color 0.3s, color 0.3s;
-}
-
-.column-btn:hover {
-	color: var(--background-base);
-	background-color: var(--color-secondary);
-}
-
-.column-btn:active {
-	color: var(--background-base);
-	background-color: var(--color-secondary);
-	opacity: 0.7;
-}
-
-.column-btn:disabled {
-	color: var(--background-base);
-	background-color: var(--color-secondary);
-	cursor: default;
-}
-
-column-btn:disabled:hover,
-column-btn:disabled:active {
-	opacity: 1;
-}
-
-.actions {
-	display: flex;
-	gap: 4px;
-	height: 20px;
-}
-
-.action-btn {
-	padding: 3px;
-	width: 24px;
-	height: 24px;
-	color: var(--color-neutral);
-	background-color: transparent;
-	border: none;
-	cursor: pointer;
-}
-
-.action-btn label input {
-	cursor:pointer;
-}
-
-.action-btn :hover{
-	color: var(--color-secondary);
-}
-
-.action-btn :active {
-	color: var(--color-secondary);
-	opacity: 0.7;
-}
-
-.hide-icon {
-	width: 18px;
-	height: 18px;
-}
-
-.options-icon {
-	width: 20px;
-	height: 20px;
-}
-
-.favorite-icon {
-	width: 23px;
-	height: 20px;
-}
-
 .message {
 	margin-bottom: 10px;
 	line-height: 21.6px;
@@ -133,11 +55,12 @@ column-btn:disabled:active {
 	background-color: transparent;
 	border: none;
 	cursor: pointer;
-}
 
-.next:hover {
+	&:hover {
 	opacity: 0.7;
 }
+}
+
 
 .messageWrapper {
   overflow: hidden;

@@ -1,24 +1,32 @@
-import { useState } from "react";
 import styles from "./header.module.css";
+import { FILTERS, SORT_ORDERS } from "../../const/common";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  changeCurrentFilter,
+  changeCurrentSort,
+} from "../../features/data/messagesSlice";
 
-export default function Header({
-  onSortChange,
-  onFilterChange,
-  onLoadOlder,
-  initialSort = "newest",
-  initialFilter = "all",
-}) {
-  const [sortOrder, setSortOrder] = useState(initialSort);
-  const [filter, setFilter] = useState(initialFilter);
+export default function Header({ onLoadOlder }) {
+  const { currentFilter, currentSort } = useSelector((state) => ({
+    currentFilter: state.messages.currentFilter,
+    currentSort: state.messages.currentSort,
+  }));
+  const dispatch = useDispatch();
 
-  const handleSortChange = (order) => {
-    setSortOrder(order);
-    onSortChange?.(order);
+  const handleSortChange = () => {
+    if (currentSort !== SORT_ORDERS.OLDEST) {
+      dispatch(changeCurrentSort(SORT_ORDERS.OLDEST));
+    } else {
+      dispatch(changeCurrentSort(SORT_ORDERS.NEWEST));
+    }
   };
 
-  const handleFilterChange = (filterType) => {
-    setFilter(filterType);
-    onFilterChange?.(filterType);
+  const handleFilterChange = () => {
+    if (currentFilter !== FILTERS.ALL) {
+      dispatch(changeCurrentFilter(FILTERS.ALL));
+    } else {
+      dispatch(changeCurrentFilter(FILTERS.FAVORITES));
+    }
   };
 
   return (
@@ -27,19 +35,21 @@ export default function Header({
         <span className={styles.label}>Сортировка:</span>
         <button
           className={`${styles.sortBtn} ${
-            sortOrder === "newest" ? styles.active : ""
+            currentSort === SORT_ORDERS.NEWEST ? styles.active : ""
           }`}
-          onClick={() => handleSortChange("newest")}
+          onClick={handleSortChange}
+          disabled={currentSort === SORT_ORDERS.NEWEST}
         >
-          Новые сверху
+          {SORT_ORDERS.NEWEST}
         </button>
         <button
           className={`${styles.sortBtn} ${
-            sortOrder === "oldest" ? styles.active : ""
+            currentSort === SORT_ORDERS.OLDEST ? styles.active : ""
           }`}
-          onClick={() => handleSortChange("oldest")}
+          onClick={handleSortChange}
+          disabled={currentSort === SORT_ORDERS.OLDEST}
         >
-          Старые сверху
+          {SORT_ORDERS.OLDEST}
         </button>
       </div>
 
@@ -47,17 +57,19 @@ export default function Header({
         <span className={styles.label}>Фильтр:</span>
         <button
           className={`${styles.filterBtn} ${
-            filter === "all" ? styles.active : ""
+            currentFilter === FILTERS.ALL ? styles.active : ""
           }`}
-          onClick={() => handleFilterChange("all")}
+          onClick={handleFilterChange}
+          disabled={currentFilter === FILTERS.ALL}
         >
           Все сообщения
         </button>
         <button
           className={`${styles.filterBtn} ${
-            filter === "favorites" ? styles.active : ""
+            currentFilter === FILTERS.FAVORITES ? styles.active : ""
           }`}
-          onClick={() => handleFilterChange("favorites")}
+          onClick={handleFilterChange}
+          disabled={currentFilter === FILTERS.FAVORITES}
         >
           Избранные
         </button>
