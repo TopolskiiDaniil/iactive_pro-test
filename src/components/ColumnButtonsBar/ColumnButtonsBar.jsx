@@ -1,4 +1,4 @@
-import styles from "./ColumnButtonsBar.module.css";
+import styles from "./columnButtonsBar.module.css";
 import { COLUMN_NAMES } from "../../const/common";
 
 export default function ColumnButtonsBar({ onMove, column, messageId }) {
