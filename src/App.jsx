@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import {
   checkNewMessages,
   fetchInitialMessages,
+  setItemsFromStorage,
 } from "./features/data/messagesSlice";
 import { UPDATE_MESSAGES_INTERVAL } from "./const/common";
 
@@ -13,7 +14,21 @@ function App() {
   const { loading, error } = useSelector((state) => state.messages);
 
   useEffect(() => {
-    dispatch(fetchInitialMessages());
+    const saved = localStorage.getItem("messages");
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          dispatch(setItemsFromStorage(parsed));
+        } else {
+          dispatch(fetchInitialMessages());
+        }
+      } catch {
+        dispatch(fetchInitialMessages());
+      }
+    } else {
+      dispatch(fetchInitialMessages());
+    }
 
     const interval = setInterval(() => {
       dispatch(checkNewMessages());

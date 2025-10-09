@@ -2,7 +2,7 @@ import styles from "./messageList.module.css";
 import Message from "../message/Message";
 import { memo, useLayoutEffect, useRef } from "react";
 
-function MessageList({ items, onMove }) {
+function MessageList({ items, onMove, onFavoriteButtonClick }) {
   const positions = useRef(new Map());
   const newIdsRef = useRef(new Set());
   const refs = useRef(new Map());
@@ -69,6 +69,7 @@ function MessageList({ items, onMove }) {
           key={item.id}
           item={item}
           onMove={onMove}
+          onFavoriteButtonClick={onFavoriteButtonClick}
           innerRef={(el) => refs.current.set(item.id, el)}
         />
       ))}
