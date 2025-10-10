@@ -15,7 +15,7 @@ export default defineConfig(({ command }) => ({
   } : undefined,
   define: {
     'process.env.NODE_ENV': JSON.stringify(command === 'serve' ? 'development' : 'production'),
-    'process.env.API_URL': command === 'serve'
+    'process.env.API_URL': command === 'serve' 
       ? JSON.stringify('/api')
       : JSON.stringify('http://a0830433.xsph.ru')
   }
