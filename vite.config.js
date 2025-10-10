@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
   plugins: [react()],
   server: command === 'serve' ? {
@@ -13,10 +12,4 @@ export default defineConfig(({ command }) => ({
       },
     },
   } : undefined,
-  define: {
-    'process.env.NODE_ENV': JSON.stringify(command === 'serve' ? 'development' : 'production'),
-    'process.env.API_URL': command === 'serve' 
-      ? JSON.stringify('/api')
-      : JSON.stringify('http://a0830433.xsph.ru')
-  }
 }))
