@@ -1,8 +1,7 @@
 import axios from 'axios';
 
 const apiInstance = axios.create({
-	//   baseURL: '/api',
-  baseURL: '/api/proxy',
+	baseURL: '/api',
   timeout: 10000,
 });
 
