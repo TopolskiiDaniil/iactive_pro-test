@@ -12,6 +12,7 @@ import {
 
 export default function MainPage() {
   const [items, setItems] = useState([]);
+  const [isLoadingOlder, setIsLoadingOlder] = useState(false);
   const dispatch = useDispatch();
   const {
     items: storeItems = [],
@@ -65,13 +66,25 @@ export default function MainPage() {
 
   const columns = {
     left: filteredItems(
-      sortItems(items.filter((i) => i.column === COLUMN_NAMES.LEFT)),
+      sortItems(
+        !isLoadingOlder
+          ? items.filter((i) => i.column === COLUMN_NAMES.LEFT)
+          : items.filter((i) => i.column === COLUMN_NAMES.LEFT && !i.isOld),
+      ),
     ),
     center: filteredItems(
-      sortItems(items.filter((i) => i.column === COLUMN_NAMES.CENTER)),
+      sortItems(
+        !isLoadingOlder
+          ? items.filter((i) => i.column === COLUMN_NAMES.CENTER)
+          : items.filter((i) => i.column === COLUMN_NAMES.CENTER && !i.isOld),
+      ),
     ),
     right: filteredItems(
-      sortItems(items.filter((i) => i.column === COLUMN_NAMES.RIGHT)),
+      sortItems(
+        !isLoadingOlder
+          ? items.filter((i) => i.column === COLUMN_NAMES.RIGHT)
+          : items.filter((i) => i.column === COLUMN_NAMES.RIGHT && !i.isOld),
+      ),
     ),
   };
 
@@ -93,14 +106,13 @@ export default function MainPage() {
     dispatch(toggleFavorite(id));
   };
 
-  const handleLoadOlder = () => {
-    console.log("Загрузить предыдущие сообщения");
-    // Вызовите вашу функцию загрузки старых сообщений
+  const toggleLoadOlder = () => {
+    setIsLoadingOlder((prev) => !prev);
   };
 
   return (
     <>
-      <Header onLoadOlder={handleLoadOlder} />
+      <Header onLoadOlder={toggleLoadOlder} isLoadingOlder={isLoadingOlder} />
       <div className={styles.container}>
         <MessageList
           items={columns.left}

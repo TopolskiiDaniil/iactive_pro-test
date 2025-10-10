@@ -30,7 +30,7 @@ function MessageList({ items, onMove, onFavoriteButtonClick }) {
         child.style.opacity = 0;
         child.style.transform = "scale(0.95)";
         requestAnimationFrame(() => {
-          child.style.transition = "transform 300ms ease, opacity 300ms ease";
+          child.style.transition = "transform 0.3s ease, opacity 0.3s ease";
           child.style.opacity = 1;
           child.style.transform = "scale(1)";
 

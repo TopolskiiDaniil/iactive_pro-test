@@ -92,6 +92,7 @@ const messagesSlice = createSlice({
           ...msg,
           isFavorite: false,
 					isMinimized: false,
+					isOld: true,
           column: COLUMN_NAMES.CENTER,
         }));
 

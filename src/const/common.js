@@ -1,5 +1,5 @@
 const MAX_LENGTH_CONTENT = 40;
-const UPDATE_MESSAGES_INTERVAL = 50000;
+const UPDATE_MESSAGES_INTERVAL = 5000;
 const FILTERS ={
   ALL: 'Все сообщения',
 	FAVORITES: 'Избранное',

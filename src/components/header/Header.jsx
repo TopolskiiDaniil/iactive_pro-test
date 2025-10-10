@@ -6,7 +6,7 @@ import {
   changeCurrentSort,
 } from "../../features/data/messagesSlice";
 
-export default function Header({ onLoadOlder }) {
+export default function Header({ onLoadOlder, isLoadingOlder }) {
   const { currentFilter, currentSort } = useSelector((state) => ({
     currentFilter: state.messages.currentFilter,
     currentSort: state.messages.currentSort,
@@ -76,7 +76,7 @@ export default function Header({ onLoadOlder }) {
       </div>
 
       <button className={styles.loadOlderBtn} onClick={onLoadOlder}>
-        Загрузить предыдущие
+        {!isLoadingOlder ? "Загрузить предыдущие" : "Загрузить текущие"}
       </button>
     </header>
   );

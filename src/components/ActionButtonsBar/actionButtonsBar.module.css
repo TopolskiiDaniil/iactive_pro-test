@@ -85,7 +85,7 @@
   padding: 6px 12px;
   border: 1px solid #ccc;
 	font-size: 11px;
-	line-height: 100%;
+	line-height: 50%;
   text-align: left;
   cursor: pointer;
 }
@@ -111,24 +111,26 @@
   background: var(--color-bg);
   padding: 20px;
   border-radius: 8px;
-  width: 260px;
+  width: 100§;
 	color: var(--background-base);
   text-align: center;
-	font-size: 20px;
+	font-size: 14px;
 	font-weight: bold;
 }
 
 .modalButtons {
   display: flex;
-  justify-content: space-around;
-  margin-top: 15px;
+  justify-content: center;
+	gap: 30px;
+  margin-top: 5px;
 }
 
 .modalButton {
-  padding: 6px 12px;
+  padding: 4px 6px;
   border-radius: 4px;
   border: 1px solid var(--background-base);
   cursor: pointer;
+	font-size: 14px;
 }
 
 .modalButton:hover {
