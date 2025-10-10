@@ -3,7 +3,8 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig(({ command }) => ({
   plugins: [react()],
-  server: command === 'serve' ? {
+//  server: command === 'serve' ? 
+  server:{
     proxy: {
       '/api': {
         target: 'http://a0830433.xsph.ru',
