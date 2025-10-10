@@ -8,6 +8,7 @@ import ColumnButtonsBar from "../ColumnButtonsBar/ColumnButtonsBar";
 import ActionButtonsBar from "../ActionButtonsBar/ActionButtonsBar";
 import { deleteMessage } from "../../features/data/messagesSlice";
 import { useDispatch } from "react-redux";
+import { fadeOut } from "../../utils/fadeOut";
 
 export default function Message({
   item,
@@ -43,7 +44,6 @@ export default function Message({
 
       el.style.height = startHeight + "px";
       el.style.transition = "height 0.3s ease";
-      el.style.overflow = "hidden";
 
       requestAnimationFrame(() => {
         el.style.height = endHeight + "px";
@@ -52,7 +52,6 @@ export default function Message({
       const onTransitionEnd = () => {
         el.style.height = "auto";
         el.style.transition = "";
-        el.style.overflow = "";
         el.removeEventListener("transitionend", onTransitionEnd);
       };
 
@@ -80,8 +79,6 @@ export default function Message({
 
       const onTransitionEnd = () => {
         card.style.height = isMinimized ? "auto" : `${endHeight}px`;
-        // card.style.transition = "";
-        // card.style.overflow = "";
         card.removeEventListener("transitionend", onTransitionEnd);
       };
 
@@ -89,7 +86,8 @@ export default function Message({
     });
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
+    await fadeOut(contentRef.current);
     dispatch(deleteMessage(id));
   };
 
